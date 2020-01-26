@@ -26,3 +26,10 @@ To execute
 - Download this repository/folder (Autocomplete-TokenInput)
 - Open demo.html in a web browser
 - You'll know what to do!
+
+Demo
+------
+![Landing page](media/demo_intro.png)
+![Search with autocomplete](media/demo_search.png)
+![Token gets added on selection](media/demo_search_token_input.png)
+![Token limit reached](media/demo_token_limit_5.png)
