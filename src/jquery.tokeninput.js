@@ -1,13 +1,3 @@
-/*
- * jQuery Plugin: Tokenizing Autocomplete Text Entry
- * Version 1.6.0
- *
- * Copyright (c) 2009 James Smith (http://loopj.com)
- * Licensed jointly under the GPL and MIT licenses,
- * choose which one suits your project best!
- *
- */
-
 (function ($) {
 // Default settings
 var DEFAULT_SETTINGS = {
@@ -769,8 +759,8 @@ $.TokenList = function (input, url_or_data, settings) {
             if(settings.url) {
                 // var url = computeURL();
                 var url = settings.url
-                // Extract exisiting get params
-                
+
+                // initial get request - search command
                 $.ajax({
                     url: url + "&s=" + query + "*",
                     dataType: 'json',
@@ -778,33 +768,36 @@ $.TokenList = function (input, url_or_data, settings) {
                     success: function(json) { 
                         var titles = []                                               
                         var promises = $.map(json[settings.jsonContainer], function(queryResult) {
-                            detail_url = url + "&t=" + queryResult.Title;                                                      
+                            detail_url = url + "&t=" + queryResult.Title;  
+                            // store all obtained titles                                                    
                             titles.push(queryResult.Title)
-                            // console.log(detail_url)
+                            // perform search by title to get director (or any other info)
                             return $.ajax({ type: 'get', url: detail_url, dataType: 'json' });
                         });
+                        // wait for all secondary queries to return (collect all directors)
                         $.when.apply($, promises).done(function() {
+                            // collect all directors
                             var directors = (promises.length > 1)
                                 ? $.map(arguments, function(a) { return a[0].Director; })
                                 : [arguments[0].Director];
                             // console.log(directors)
-
+                            // map title and respective directors
                             var items = $.map(titles, function(title, i) {
                                 return { Title: title , Director: directors[i] };
-                            });                           
-
-                            // Do stuff with items array here.
+                            });   
+                            // add query results to cache
+                            cache.add(cache_key, items)
                             populate_dropdown(query, items)
                         }).fail(function() {
-                            alert('fail');
+                            alert('Secondary query fail');
                         });
                     },
                     error: function() {
-                        alert("fail");
+                        alert("Primary query fail");
                     }
-                });              
+                }); 
             } else if(settings.local_data) {
-                // Do the search through local data
+                // Gives option to do the search through local data
                 var results = $.grep(settings.local_data, function (row) {
                     return row[settings.propertyToSearch].toLowerCase().indexOf(query.toLowerCase()) > -1;
                 });
