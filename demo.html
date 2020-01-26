@@ -11,6 +11,9 @@
       $("input[type=button]").click(function () {
           alert("Okay!");
       });
+      $("#demo-input-facebook-theme").tokenInput("http://www.omdbapi.com/?&apikey=b56732e1", { prePopulate: [ {Title: "Pulp Fiction", Director: "Quentin Tarantino"} ],
+                theme: "facebook"
+            });
   });
   </script>
 </head>
@@ -35,13 +38,6 @@
           <div class=col-md-1><input type="button" value="Submit" /></div>
           <div class=col-md-2></div>
         </div>
-        <script type="text/javascript">
-        $(document).ready(function() {
-            $("#demo-input-facebook-theme").tokenInput("http://www.omdbapi.com/?&apikey=b56732e1", { prePopulate: [ {Title: "Pulp Fiction", Director: "Quentin Tarantino"} ],
-                theme: "facebook"
-            });
-        });
-        </script>
       </div>
       <div class="col-md-3"></div>
     
