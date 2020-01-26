@@ -12,4 +12,14 @@ Overview
 - No more than 5 selections can be made at a time
 - The autocomplete section is lost when clocked outside of the box
 
+Dependencies
+------------
+Uses the following
+- jquery 3.4.1 (works with jquery 1.5.1 or higher)
+- Bootstrap 4.4.1
 
+To execute
+----------
+- Download this repository/folder (Autocomplete-TokenInput)
+- Open demo.html in a web browser
+- You'll know what to do!
